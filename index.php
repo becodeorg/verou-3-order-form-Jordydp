@@ -48,41 +48,42 @@ $products = [
 $totalValue = 0;
 $emailErr = $streetErr = $streetnumberErr = $cityErr = $zipcodeErr = "";
 $email = $street = $streetnumber = $city = $zipcode="";
+$errList=[];
 function validate()
 {
     // This function will send a list of invalid fields back
-
+    global $emailErr, $streetErr, $streetnumberErr, $cityErr, $zipcodeErr;
+    global $email, $street, $streetnumber, $city, $zipcode;
+    global $errList;
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        global $emailErr, $streetErr, $streetnumberErr, $cityErr, $zipcodeErr;
-        global $email, $street, $streetnumber, $city, $zipcode;
-
+      
         if(empty($_POST["email"])){
-            $emailErr = "Email is required!";
+           $errList[] = $emailErr = "Email is required!";
         } else {
             echo $_POST["email"];
         }
         if(empty($_POST["street"])){
-            $streetErr = "Street is required!";
+            $errList[] = $streetErr = "Street is required!";
         } else{
             echo $_POST["street"];
         }
         if(empty($_POST["streetnumber"])){
-            $streetnumberErr = "Streetnumber is required!";
+            $errList[] = $streetnumberErr = "Streetnumber is required!";
         } else{
             echo $_POST["streetnumber"];
         }
         if(empty($_POST["city"])){
-            $cityErr = "City is required!";
+            $errList[] = $cityErr = "City is required!";
         } else{
             echo $_POST["city"];
         }
         if(empty($_POST["zipcode"])){
-            $zipcodeErr = "zipcode is required!";
+            $errList[] = $zipcodeErr = "zipcode is required!";
         } else{
             echo $_POST["zipcode"];
         }
     }
-    return [];
+    return $errList;
 }
 
 function handleForm()

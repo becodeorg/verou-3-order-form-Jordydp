@@ -28,6 +28,7 @@
         </ul>
     </nav>
     */ ?>
+    <p><?= print_r($errList)?></p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
