@@ -19,7 +19,7 @@ function pre_r( $array ) {
     print_r($array);
     echo '</pre>';
 }
-
+var_dump($_POST);
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     pre_r($_GET);
@@ -30,7 +30,7 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     pre_r($_SESSION);
 }
-whatIsHappening();
+//whatIsHappening();
 // TODO: provide some products (you may overwrite the example)
 $products = [
     ['name' => 'The Barny Beekeeper Plushie (*only knives included)', 'price' => 39.99, 'image' => 'https://cdn.shopify.com/s/files/1/0617/2305/0205/products/IMG_6952_1280x1280_crop_center.jpg.webp?v=1644607889'],
@@ -46,17 +46,50 @@ $products = [
 ];
 
 $totalValue = 0;
-
+$emailErr = $streetErr = $streetnumberErr = $cityErr = $zipcodeErr = "";
+$email = $street = $streetnumber = $city = $zipcode="";
 function validate()
 {
     // This function will send a list of invalid fields back
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        global $emailErr, $streetErr, $streetnumberErr, $cityErr, $zipcodeErr;
+        global $email, $street, $streetnumber, $city, $zipcode;
+
+        if(empty($_POST["email"])){
+            $emailErr = "Email is required!";
+        } else {
+            echo $_POST["email"];
+        }
+        if(empty($_POST["street"])){
+            $streetErr = "Street is required!";
+        } else{
+            echo $_POST["street"];
+        }
+        if(empty($_POST["streetnumber"])){
+            $streetnumberErr = "Streetnumber is required!";
+        } else{
+            echo $_POST["streetnumber"];
+        }
+        if(empty($_POST["city"])){
+            $cityErr = "City is required!";
+        } else{
+            echo $_POST["city"];
+        }
+        if(empty($_POST["zipcode"])){
+            $zipcodeErr = "zipcode is required!";
+        } else{
+            echo $_POST["zipcode"];
+        }
+    }
     return [];
 }
 
 function handleForm()
 {
-    // TODO: form related tasks (step 1)
 
+    // TODO: form related tasks (step 1)
+    
     // Validation (step 2)
     $invalidFields = validate();
     if (!empty($invalidFields)) {
@@ -65,7 +98,7 @@ function handleForm()
         // TODO: handle successful submission
     }
 }
-
+handleForm();
 // TODO: replace this if by an actual check
 $formSubmitted = false;
 if ($formSubmitted) {
@@ -73,3 +106,6 @@ if ($formSubmitted) {
 }
 
 require 'form-view.php';
+
+//string[0] = first item of string
+ 
