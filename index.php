@@ -30,7 +30,7 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     pre_r($_SESSION);
 }
-//whatIsHappening();
+whatIsHappening();
 // TODO: provide some products (you may overwrite the example)
 $products = [
     ['name' => 'The Barny Beekeeper Plushie (*only knives included)', 'price' => 39.99, 'image' => 'https://cdn.shopify.com/s/files/1/0617/2305/0205/products/IMG_6952_1280x1280_crop_center.jpg.webp?v=1644607889'],
@@ -88,13 +88,16 @@ function validate()
 
 function handleForm()
 {
-
+global $errList;
     // TODO: form related tasks (step 1)
     
     // Validation (step 2)
     $invalidFields = validate();
     if (!empty($invalidFields)) {
         // TODO: handle errors
+        foreach($errList as $error) {
+            echo $error . "<br>";
+        }
     } else {
         // TODO: handle successful submission
     }
