@@ -28,12 +28,14 @@
         </ul>
     </nav>
     */ ?>
-    <p><?= print_r($error)?></p>
+    
+ 
+  
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" class="form-control"/><span class="bg-danger">* <?php echo $emailErr;?></span><br>
+                <input type="email" id="email" name="email" class="form-control"/><span class="bg-danger">
             </div>
             <div></div>
         </div>
@@ -44,22 +46,22 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="street">Street:</label>
-                    <input type="text" name="street" id="street" class="form-control"><span class="bg-danger">* <?php echo $streetErr;?></span><br>
+                    <input type="text" name="street" id="street" class="form-control"><span class="bg-danger">
             </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetnumber">Street number:</label>
-                    <input type="text" id="streetnumber" name="streetnumber" class="form-control"><span class="bg-danger">* <?php echo $streetnumberErr;?></span><br>
+                    <input type="text" id="streetnumber" name="streetnumber" class="form-control"><span class="bg-danger">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="city">City:</label>
-                    <input type="text" id="city" name="city" class="form-control"><span class="bg-danger">* <?php echo $cityErr;?></span><br>
+                    <input type="text" id="city" name="city" class="form-control"><span class="bg-danger">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
-                    <input type="text" id="zipcode" name="zipcode" class="form-control"><span class="bg-danger">* <?php echo $zipcodeErr;?></span><br>
+                    <input type="text" id="zipcode" name="zipcode" class="form-control"><span class="bg-danger">
                 </div>
             </div>
         </fieldset>
@@ -80,7 +82,7 @@
         <button type="submit" class="btn btn-primary">Order!</button>
     </form>
 
-    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
+    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in TEDDY BEARS.</footer>
 </div>
 
 <style>

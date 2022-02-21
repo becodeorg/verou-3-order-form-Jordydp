@@ -30,7 +30,7 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     pre_r($_SESSION);
 }
-whatIsHappening();
+//whatIsHappening();
 // TODO: provide some products (you may overwrite the example)
 $products = [
     ['name' => 'The Barny Beekeeper Plushie (*only knives included)', 'price' => 39.99, 'image' => 'https://cdn.shopify.com/s/files/1/0617/2305/0205/products/IMG_6952_1280x1280_crop_center.jpg.webp?v=1644607889'],
@@ -46,70 +46,99 @@ $products = [
 ];
 
 $totalValue = 0;
-$emailErr = $streetErr = $streetnumberErr = $cityErr = $zipcodeErr = "";
-$email = $street = $streetnumber = $city = $zipcode="";
+
+$emailErr = $streetErr = $streetnumberErr = $cityErr = $zipcodeErr = $productErr = "";
+$email = $street = $streetnumber = $city = $zipcode = $productSelected = "";
 $errList=[];
 function validate()
 {
     // This function will send a list of invalid fields back
-    global $emailErr, $streetErr, $streetnumberErr, $cityErr, $zipcodeErr;
+    global $emailErr, $streetErr, $streetnumberErr, $cityErr, $zipcodeErr, $products;
     global $email, $street, $streetnumber, $city, $zipcode;
     global $errList;
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-      
         if(empty($_POST["email"])){
-           $errList[] = $emailErr = "Email is required!";
+            $errList[] = $emailErr = "Email is required!";
         } else {
-            echo $_POST["email"];
+            $email = $_POST["email"];
         }
         if(empty($_POST["street"])){
             $errList[] = $streetErr = "Street is required!";
         } else{
-            echo $_POST["street"];
+            $street = $_POST["street"];
         }
         if(empty($_POST["streetnumber"])){
             $errList[] = $streetnumberErr = "Streetnumber is required!";
         } else{
-            echo $_POST["streetnumber"];
+            $streetnumber = $_POST["streetnumber"];
         }
         if(empty($_POST["city"])){
             $errList[] = $cityErr = "City is required!";
         } else{
-            echo $_POST["city"];
+            $city = $_POST["city"];
         }
         if(empty($_POST["zipcode"])){
             $errList[] = $zipcodeErr = "zipcode is required!";
+        }else if(!is_numeric($_POST["zipcode"])){
+            $errList[] = $zipcodeErr = "zipcode should be numeric!"; 
+        }else{
+            $zipcode = $_POST["zipcode"];
+        }
+        if(empty($_POST["products"])){
+            $errList[] = $productErr = "You should select a product";
         } else{
-            echo $_POST["zipcode"];
+            selectedProducts();
         }
     }
     return $errList;
 }
 
+function selectedProducts()
+{
+    global $productSelected, $products, $totalValue;
+
+    foreach($_POST["products"] as $product => $value){
+        if($value = 1){
+            $productSelected .= $products[$product]['name']. "<br>";
+            $totalValue += $products[$product]['price'];
+        };
+    };
+    return $productSelected;  
+}
+
+
 function handleForm()
 {
-global $errList;
+    //global $emailErr, $streetErr, $streetnumberErr, $cityErr, $zipcodeErr;
+    global $email, $street, $streetnumber, $city, $zipcode, $productSelected;
+    global $errList;
     // TODO: form related tasks (step 1)
     
     // Validation (step 2)
-    $invalidFields = validate();
-    if (!empty($invalidFields)) {
+    $errList = validate();
+    if (!empty($errList)) {
         // TODO: handle errors
+        echo '<div class="alert alert-danger text-center">';
         foreach($errList as $error) {
             echo $error . "<br>";
         }
     } else {
         // TODO: handle successful submission
+        $succesResponse = "Thank you" . $email . "<br>" . "You ordered : <br>"
+        . $productSelected . "It will be delivered too : <br>" .$street . " " . $streetnumber
+        . " in " . $zipcode . " " . $city;
+        echo '<div class="alert alert-primary" role="alert">' . $succesResponse . '</div>';
+        
     }
+    echo "</div>";
 }
-handleForm();
+//handleForm();
 // TODO: replace this if by an actual check
-$formSubmitted = false;
-if ($formSubmitted) {
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
     handleForm();
 }
 
 require 'form-view.php';
 
 //string[0] = first item of string
- 
