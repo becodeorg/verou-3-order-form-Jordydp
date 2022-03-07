@@ -134,9 +134,9 @@ function handleForm()
 }
 //handleForm();
 // TODO: replace this if by an actual check
-
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-    handleForm();
+$fromSubmitted = !empty($_POST);
+if($fromSubmitted) {
+    $message = handleForm();
 }
 
 require 'form-view.php';
